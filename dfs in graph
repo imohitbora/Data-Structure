@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int> >graph;
+vector<bool>visited;
+
+void dfs(int v)
+{
+	visited[v]=true;
+	cout<<v<<" ";
+	for(vector<int>:: iterator it=graph[v].begin();it!=graph[v].end();it++)
+	{ if(!visited[*it])
+	      dfs(*it);
+	      
+	}
+}	
+int main() {
+	int n,m,u,v;
+	cin>>n>>m;
+	graph=vector<vector<int> >(n);
+	visited=vector<bool>(n,0);
+	for(int i=0;i<m;i++)
+	{   cin>>u>>v;
+	  
+		graph[u].push_back(v);
+		//graph[v].push_back(u);
+	}
+	dfs(2);
+	return 0;
+}

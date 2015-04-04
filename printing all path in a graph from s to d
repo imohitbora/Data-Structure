@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int> >graph;
+vector<bool>visited;
+
+void dfs(int v,int d,int *path,int n)
+{
+	visited[v]=true;
+	path[n++]=v;
+	if(v==d)
+	{ for(int i=0;i<n;i++)
+	   cout<<path[i]<<" ";
+	  cout<<endl;
+	}
+  else	
+   {
+   	for(vector<int>:: iterator it=graph[v].begin();it!=graph[v].end();it++)
+	{ if(!visited[*it])
+	      dfs(*it,d,path,n);
+	      
+	}
+}	
+n--;
+visited[v]=false;
+}
+
+int main() {
+	int n,m,u,v;
+	cin>>n>>m;
+	graph=vector<vector<int> >(n);
+	visited=vector<bool>(n,0);
+	for(int i=0;i<m;i++)
+	{   cin>>u>>v;
+	  
+		graph[u].push_back(v);
+		//graph[v].push_back(u);
+	}
+	int path[n];
+	int x=0;
+	dfs(2,3,path,x);
+	return 0;
+}

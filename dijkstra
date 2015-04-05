@@ -4,12 +4,13 @@
 using namespace std;
 vector<bool>visited;
 vector<int>dis;
-int r;
+int graph[100][100];
+int r,s;
 int minimum()
 {
   int index,min=INT_MAX;
   for(int i=0;i<r;i++)
-    if(min>dis[i])
+    if(min>dis[i] && !visited[i])
    	    { min=dis[i];
    	      index=i;
    	    }
@@ -20,7 +21,7 @@ int minimum()
 	for(int i=0;i<r;i++)
 	  cout<<i<<"\t"<<dis[i]<<endl;
 } 
-void dijkstra(vector<vector<int> >*graph,int s)
+void dijkstra()
 {  
    dis[s]=0;
    
@@ -30,8 +31,7 @@ void dijkstra(vector<vector<int> >*graph,int s)
    	 visited[u]=true;
    	 
    	 for(int j=0;j<r;j++)
-   	 if(!visited[j])
-   	     if(dis[u]+graph[u][j]<dis[j])
+   	 if(!visited[j] && dis[u]!=INT_MAX && graph[u][j] && dis[u]+graph[u][j]<dis[j])
             dis[j]=dis[u]+graph[u][j];
    }
 print();
@@ -41,13 +41,14 @@ int main() {
 	
 
 	cin>>r;
-	vector<vector<int> >graph(r,vector<int>(r,0));
+//	int graph[r][r];
 	visited=vector<bool>(r,0);
 	dis=vector<int>(r,INT_MAX);
 	for(int i=0;i<r;i++)
 	  for(int j=0;j<r;j++)
 	   cin>> graph[i][j];
-	dijkstra(graph,0);  
+	   
+	dijkstra();  
 	   
 	return 0;
 }

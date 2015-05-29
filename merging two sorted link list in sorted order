@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+struct node
+{ int data;
+  node *next;
+};
+
+ void push(node **head, int n)
+{
+	
+	 node *temp=new node;
+	 temp->data=n;
+	 temp->next=(*head);
+	 (*head)=temp;
+}
+
+ void merge( node **a, node **b)
+{ 
+	node *first, *second;
+	int flag=1;
+	if((*a)->data > (*b)->data)
+	  {
+	  	 first=(*b);
+	  	 second=(*a);
+	  	 flag=0;
+	  }
+	 else
+	 {
+	 	first=(*a);
+	 	second=(*b);
+	 }
+	  
+	while(first && second )
+	{
+	   if(first->next->data > second->data)
+	   {
+	   	node *temp2 = second->next;
+	   	node *temp = first->next;
+	   	first->next = second;
+	   	first->next->next=temp;
+	   	second=temp2;
+	   }
+	   first=first->next;
+	}
+if(flag==0)	
+	(*a)=(*b);
+}
+ 
+ void print(node *head)
+{
+	while(head!=NULL)
+	{
+		cout<<head->data<<" ";
+	    head=head->next;
+    }
+	cout<<endl; 
+}
+  int main() 
+{
+   node *a=NULL;
+  push(&a, 15);
+  push(&a, 10);
+  push(&a, 5);
+ print(a);
+  
+  node *b=NULL;
+  push(&b, 20);
+  push(&b, 3);
+  push(&b, 2); 
+ print(b);
+ merge(&a,&b);
+ print(a);
+	return 0;
+}
